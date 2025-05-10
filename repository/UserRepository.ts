@@ -16,6 +16,28 @@ export class UserRepository {
     };
   }
 
+  static async findUser() {
+    const query = "SELECT * FROM users";
+    const [rows]: any = await pool.query(query);
+    if (rows.length === 0) {
+      return null;
+    }
+
+    return rows;
+  }
+
+  static async findUserById(id: number) {
+    const query = `SELECT * FROM users WHERE id = ?`;
+    const values = [id];
+
+    const [rows]: any = await pool.query(query, values);
+    if (rows.length === 0) {
+      return null;
+    }
+
+    return rows[0];
+  }
+
   static async findByEmail(email: string) {
     const query = `SELECT * FROM users WHERE email = ?`;
     const values = [email];
@@ -27,5 +49,14 @@ export class UserRepository {
     }
 
     return rows[0];
+  }
+
+  static async verifyPassword(email: string, password: string) {
+    const user = await this.findByEmail(email);
+    if (!user) {
+      return false;
+    }
+
+    return bcrypt.compare(password, user.password!);
   }
 }
