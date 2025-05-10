@@ -12,7 +12,7 @@ export class UserController {
       if (existingUser) {
         res.status(400).json({ message: "User already exists" });
         return;
-      }
+      } 
 
       const newUser = new UserDto(name, email, password);
       const resultDb = await UserRepository.createUser(newUser);
