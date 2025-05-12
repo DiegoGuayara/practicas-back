@@ -51,6 +51,19 @@ export class UserRepository {
     return rows[0];
   }
 
+  static async update(sql: string, values: any[]) {
+    const [resultDb]: any = await pool.query(sql, values);
+    return resultDb;
+  }
+
+  static async delete(id: number) {
+    const query = `DELETE FROM users WHERE id = ?`;
+    const values = [id];
+
+    const [resultDb]: any = await pool.query(query, values);
+    return resultDb;
+  }
+
   static async verifyPassword(email: string, password: string) {
     const user = await this.findByEmail(email);
     if (!user) {
