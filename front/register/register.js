@@ -1,10 +1,11 @@
-const form = document.getElementById("registerForm");
+const registerForm = document.getElementById("registerForm");
 const mensaje = document.getElementById("mensaje");
+const submitRegister = document.getElementById("submitRegister");
 
-form.addEventListener("submit", async (e) => {
+registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(form);
+  const formData = new FormData(registerForm);
   const data = {
     name: formData.get("name"),
     email: formData.get("email"),
@@ -26,7 +27,7 @@ form.addEventListener("submit", async (e) => {
 
     if (res.ok) {
       mensaje.textContent = json.message;
-      form.reset();
+      registerForm.reset();
     } else {
       mensaje.textContent = json.message || "Error al registrar el usuario";
     }
@@ -35,3 +36,10 @@ form.addEventListener("submit", async (e) => {
     mensaje.textContent = "Error de conexión con el servidor";
   }
 });
+
+
+submitRegister.addEventListener('click', (e) => {
+  e.preventDefault()
+
+
+})
