@@ -38,7 +38,7 @@ export class UserController {
       const user = await UserRepository.findByEmail(authDto.email);
 
       if (!user) {
-        res.status(401).json({ message: "Invalid email or password" });
+        res.status(401).json({ message: "Invalid email" });
         return;
       }
 
