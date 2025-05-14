@@ -36,10 +36,3 @@ registerForm.addEventListener("submit", async (e) => {
     mensaje.textContent = "Error de conexión con el servidor";
   }
 });
-
-
-submitRegister.addEventListener('click', (e) => {
-  e.preventDefault()
-
-
-})

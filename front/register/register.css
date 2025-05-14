@@ -18,8 +18,8 @@ body {
 
 #formRegister {
   position: absolute;
-  left: 750px;
-  top: 300px;
+  left: 570px;
+  top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,8 +40,6 @@ body {
   position: relative;
   bottom: 60px;
   display: flex;
-  height: auto;
-  width: auto;
   flex-direction: column;
 }
 
