@@ -152,8 +152,6 @@ export class UserController {
           },
         });
       }
-
-
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(500).json({ message: "Internal server error" });
@@ -179,8 +177,6 @@ export class UserController {
         message: "User deleted successfully",
         userId: id,
       });
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 }
