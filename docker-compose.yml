@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  users:
+    build: ./users
+    ports:
+      - "10101:10101"
+    env_file:
+      - ./users/.env
+
+  products:
+    build: ./products
+    ports:
+      - "10102:10102"
+    env_file:
+      - ./products/.env
