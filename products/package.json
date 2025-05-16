@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node dist/app.js"
   },
   "keywords": [],
@@ -12,8 +12,12 @@
   "description": "",
   "dependencies": {
     "@types/express": "^5.0.1",
+    "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mysql2": "^3.14.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

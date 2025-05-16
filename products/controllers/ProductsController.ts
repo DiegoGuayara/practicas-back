@@ -5,8 +5,14 @@ import { Request, Response } from "express";
 export class ProductsController {
   static async register(req: Request, res: Response) {
     try {
-      const { name, description, price } = req.body;
+      const { name, description, price, codeBar } = req.body;
 
+      if (!description || description.trim() === "") {
+        res.status(400).json({
+          message: "Description is required",
+        });
+        return;
+      }
       const existingProduct = await ProductsRepository.findByDescription(
         description
       );
@@ -18,7 +24,7 @@ export class ProductsController {
         return;
       }
 
-      const newProduct = new ProductsDto(name, description, price);
+      const newProduct = new ProductsDto(name, description, price, codeBar);
       const resultDb = await ProductsRepository.createProduct(newProduct);
 
       res.status(201).json({

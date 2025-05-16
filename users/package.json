@@ -29,6 +29,7 @@
     "mysql2": "^3.14.1"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.9"
+    "@types/jsonwebtoken": "^9.0.9",
+    "typescript": "^5.8.3"
   }
 }

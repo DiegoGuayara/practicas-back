@@ -15,5 +15,5 @@ CREATE TABLE products (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(100),
     price FLOAT(6,3) NOT NULL,
-    codeBar varchar(250) NOT NULL,
+    codeBar varchar(250) NOT NULL
 );

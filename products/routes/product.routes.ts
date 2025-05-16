@@ -6,5 +6,4 @@ const router = Router();
 
 router.post("/register", ProductsController.register.bind(productsController));
 
-
-export default router
+export default router;

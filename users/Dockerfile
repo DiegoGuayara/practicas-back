@@ -1,20 +1,26 @@
-# 1. Usa una imagen oficial de Node.js como base
+# Usa una imagen oficial de Node.js
 FROM node:18
 
-# 2. Establece el directorio de trabajo dentro del contenedor
+# Establece el entorno como desarrollo (para instalar devDependencies)
+ENV NODE_ENV=development
+
+# Crea la carpeta de trabajo
 WORKDIR /app
 
-# 3. Copia solo los archivos de dependencias primero
+# Copia solo archivos de dependencias para acelerar la cache
 COPY package*.json ./
 
-# 4. Instala dependencias
+# Instala TODAS las dependencias, incluidas las de desarrollo
 RUN npm install
 
-# 5. Copia el resto de los archivos de tu microservicio
+# Copia el resto del proyecto
 COPY . .
 
-# 6. Expón el puerto en que corre tu microservicio (debe coincidir con el PORT del .env)
+# Compila el código TypeScript
+RUN npm run build
+
+# Expón el puerto necesario (ajústalo al que uses en tu servidor)
 EXPOSE 10101
 
-# 7. Comando para iniciar tu app
-CMD ["node", "app.js"]
+# Ejecuta el servidor
+CMD ["npm", "start"]
