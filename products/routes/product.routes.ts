@@ -5,5 +5,9 @@ const productsController = new ProductsController();
 const router = Router();
 
 router.post("/register", ProductsController.register.bind(productsController));
+router.get(
+  "/getProducts",
+  ProductsController.getProducts.bind(productsController)
+);
 
 export default router;

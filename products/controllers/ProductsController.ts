@@ -13,9 +13,8 @@ export class ProductsController {
         });
         return;
       }
-      const existingProduct = await ProductsRepository.findByDescription(
-        description
-      );
+
+      const existingProduct = await ProductsRepository.findByDescriptionAndName(description, name);
 
       if (existingProduct) {
         res.status(400).json({
@@ -38,6 +37,26 @@ export class ProductsController {
       });
     } catch (error) {
       console.error("Error during registration:", error);
+      res.status(500).json({
+        message: "Internal server error",
+      });
+    }
+  }
+
+  static async getProducts(req: Request, res: Response) {
+    try {
+      const products = await ProductsRepository.getProducts();
+
+      if (!products) {
+        res.status(404).json({
+          message: "No products found",
+        });
+        return;
+      }
+
+      res.status(200).json(products);
+    } catch (error) {
+      console.error("Error fetching products:", error);
       res.status(500).json({
         message: "Internal server error",
       });
