@@ -74,7 +74,7 @@ const deleteProduct = () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-ñ
+    ñ;
     const formData = new FormData(form);
     const products = {
       name: formData.get("name"),
@@ -97,6 +97,11 @@ const deleteProduct = () => {
       mensaje.textContent = `Producto eliminado: ${result.product.name}`;
       mensaje.style.color = "green";
       form.reset();
+
+      setTimeout(() => {
+        mensaje.textContent = "";
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error("Error:", error);
       mensaje.textContent = `No se pudo eliminar el producto`;
