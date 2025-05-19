@@ -9,5 +9,9 @@ router.get(
   "/getProducts",
   ProductsController.getProducts.bind(productsController)
 );
+router.delete(
+  "/deleteProduct",
+  ProductsController.deleteProduct.bind(productsController)
+);
 
 export default router;

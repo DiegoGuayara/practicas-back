@@ -14,7 +14,10 @@ export class ProductsController {
         return;
       }
 
-      const existingProduct = await ProductsRepository.findByDescriptionAndName(description, name);
+      const existingProduct = await ProductsRepository.findByDescriptionAndName(
+        description,
+        name
+      );
 
       if (existingProduct) {
         res.status(400).json({
@@ -57,6 +60,46 @@ export class ProductsController {
       res.status(200).json(products);
     } catch (error) {
       console.error("Error fetching products:", error);
+      res.status(500).json({
+        message: "Internal server error",
+      });
+    }
+  }
+
+  static async deleteProduct(req: Request, res: Response) {
+    try {
+      const { name, description } = req.body;
+      if (!name || !description) {
+        res.status(400).json({
+          message: "Name and description are required",
+        });
+        return;
+      }
+
+      const product = await ProductsRepository.findByDescriptionAndName(
+        description,
+        name
+      );
+      if (!product) {
+        res.status(404).json({
+          message: "Product not found",
+        });
+        return;
+      }
+
+      const resultDb = await ProductsRepository.delete(name, description);
+      if (!resultDb) {
+        res.status(404).json({
+          message: "Product not found",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        message: "Product deleted successfully",
+      });
+    } catch (error) {
+      console.error("Error deleting product:", error);
       res.status(500).json({
         message: "Internal server error",
       });

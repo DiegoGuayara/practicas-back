@@ -26,12 +26,6 @@ const userRegistration = () => {
       const response = await fetch(url, options);
       const data = await response.json();
 
-      if (!response.ok) {
-        mensaje.textContent = `Error: ${data.error}`;
-        mensaje.style.color = "red";
-        return;
-      }
-
       mensaje.textContent = `Usuario registrado: ${data.user.name}`;
       mensaje.style.color = "green";
       form.reset();
@@ -39,7 +33,10 @@ const userRegistration = () => {
       const li = document.createElement("li");
       li.textContent = `${data.user.name} - ${data.user.email}`;
       document.getElementById("listaUsuarios").appendChild(li);
-    } catch (error) {}
+    } catch (error) {
+      mensaje.textContent = `No se pudo registrar el usuario`;
+      mensaje.style.color = "red";
+    }
   });
 };
 

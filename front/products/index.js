@@ -27,12 +27,6 @@ const productRegistration = () => {
       const response = await fetch(url, options);
       const result = await response.json();
 
-      if (!response.ok) {
-        mensaje.textContent = `Error: ${result.error}`;
-        mensaje.style.color = "red";
-        return;
-      }
-
       mensaje.textContent = `Producto registrado: ${result.product.name}`;
       mensaje.style.color = "green";
       form.reset();
@@ -40,12 +34,15 @@ const productRegistration = () => {
       const li = document.createElement("li");
       li.textContent = `${result.product.name} - ${result.product.description} - ${result.product.price}`;
       document.getElementById("lista-productos").appendChild(li);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error:", error);
+      mensaje.textContent = `Este producto ya existe`;
+      mensaje.style.color = "red";
+    }
   });
 };
 
 const productsList = () => {
-  
   // Obtener productos
   fetch("http://localhost:10102/products/getProducts")
     .then((response) => {
@@ -65,11 +62,51 @@ const productsList = () => {
       });
     })
     .catch((error) => {
+      mensaje.textContent = `Error al obtener los productos`;
+      mensaje.style.color = "red";
       console.error("Error:", error);
     });
-}
+};
+
+const deleteProduct = () => {
+  const form = document.getElementById("delete-producto");
+  const mensaje = document.getElementById("mensaje2");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+ñ
+    const formData = new FormData(form);
+    const products = {
+      name: formData.get("name"),
+      description: formData.get("description"),
+    };
+
+    try {
+      const url = "http://localhost:10102/products/deleteProduct";
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(products),
+      };
+
+      const response = await fetch(url, options);
+      const result = await response.json();
+
+      mensaje.textContent = `Producto eliminado: ${result.product.name}`;
+      mensaje.style.color = "green";
+      form.reset();
+    } catch (error) {
+      console.error("Error:", error);
+      mensaje.textContent = `No se pudo eliminar el producto`;
+      mensaje.style.color = "red";
+    }
+  });
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   productRegistration();
-  productsList()
+  productsList();
+  deleteProduct();
 });

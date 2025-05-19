@@ -34,6 +34,19 @@ export class ProductsRepository {
     return rows;
   }
 
+  static async delete(name:string, description:string){
+    const query = "DELETE FROM products WHERE name = ? AND description = ?";
+    const values = [name, description];
+
+    const [rows]: any = await pool.query(query, values);
+
+    if (rows.affectedRows === 0) {
+      return null;
+    }
+
+    return rows;
+  }
+
   static async findByDescriptionAndName(description: string, name: string) {
     const query = "SELECT * FROM products WHERE description = ? AND name = ?";
     const values = [description, name];
