@@ -12,5 +12,6 @@ router.get("/getUser/:id", UserController.getUserById.bind(userController));
 router.get("/verifyUser", verifyToken, UserController.verifyUser.bind(userController))
 router.put("/updateUser/:id", UserController.updateUser.bind(userController));
 router.delete("/deleteUser/:id", UserController.deleteUser.bind(userController));
+router.post("/sendEmail", UserController.sendEmail.bind(userController));
 
 export default router;

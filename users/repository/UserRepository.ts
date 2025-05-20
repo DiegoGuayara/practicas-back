@@ -1,6 +1,7 @@
 import pool from "../config/db-config";
 import { UserDto } from "../Dto/UserDto";
 import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
 
 export class UserRepository {
   static async createUser(user: UserDto) {
@@ -71,5 +72,37 @@ export class UserRepository {
     }
 
     return bcrypt.compare(password, user.password!);
+  }
+
+  static async sendEmail(
+    email: string,
+    service: string,
+    password: string,
+    emailTo: string,
+    subject: string,
+    text: string
+  ) {
+    const transporter = nodemailer.createTransport({
+      service: service,
+      auth: {
+        user: email,
+        pass: password,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: emailTo,
+      subject: subject,
+      text: text,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
   }
 }
