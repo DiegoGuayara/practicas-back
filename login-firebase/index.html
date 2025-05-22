@@ -9,6 +9,40 @@
     <h1>Iniciar sesión con Google</h1>
     <button id="googleLogin">Ingresar con Google</button>
 
-    <script type="module" src="./index.js"></script>
+    <!-- Firebase CDN -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithPopup,
+        GoogleAuthProvider,
+      } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBqfdUtjSlTYCkxxCkInPe9RWCd-51Nxa8",
+        authDomain: "practica-login-9ea1e.firebaseapp.com",
+        projectId: "practica-login-9ea1e",
+        storageBucket: "practica-login-9ea1e.appspot.com",
+        messagingSenderId: "1005896873288",
+        appId: "1:1005896873288:web:56e9d9b5e2c567d1aaef7d",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      document.getElementById("googleLogin").addEventListener("click", () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const user = result.user;
+            alert(`Bienvenido, ${user.displayName}`);
+            console.log(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al iniciar sesión");
+          });
+      });
+    </script>
   </body>
 </html>
